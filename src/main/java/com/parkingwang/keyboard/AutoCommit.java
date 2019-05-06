@@ -16,7 +16,6 @@ import java.util.List;
  */
 class AutoCommit extends OnKeyboardChangedListener.Simple
 {
-
     private final InputView mInputView;
 
     private boolean mIsDeleteAction = false;

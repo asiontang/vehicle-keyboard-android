@@ -10,10 +10,11 @@ import com.parkingwang.vehiclekeyboard.R;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 
 /**
  * @author 黄浩杭 (huanghaohang@parkingwang.com)

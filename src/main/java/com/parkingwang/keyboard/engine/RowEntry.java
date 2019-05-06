@@ -1,9 +1,10 @@
 package com.parkingwang.keyboard.engine;
 
-import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import androidx.annotation.NonNull;
 
 /**
  * @author 陈哈哈 (yoojiachen@gmail.com)

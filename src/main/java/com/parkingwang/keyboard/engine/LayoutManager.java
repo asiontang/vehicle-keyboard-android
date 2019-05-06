@@ -1,11 +1,12 @@
 package com.parkingwang.keyboard.engine;
 
-import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 import static com.parkingwang.keyboard.engine.NumberType.AVIATION;
 import static com.parkingwang.keyboard.engine.NumberType.CIVIL;
@@ -34,6 +35,7 @@ class LayoutManager
     private final static String NAME_WITHOUT_IO = "layout.without.io";
     private final Map<String, LayoutEntry> mNamedLayouts = new HashMap<>();
     private final List<LayoutProvider> mProviders = new ArrayList<>(5);
+
     LayoutManager()
     {
         // 省份简称布局
