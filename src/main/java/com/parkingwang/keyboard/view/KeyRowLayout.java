@@ -4,6 +4,10 @@
 
 package com.parkingwang.keyboard.view;
 
+import com.parkingwang.keyboard.engine.KeyEntry;
+import com.parkingwang.keyboard.engine.KeyType;
+import com.parkingwang.vehiclekeyboard.R;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -11,15 +15,12 @@ import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.parkingwang.keyboard.engine.KeyEntry;
-import com.parkingwang.keyboard.engine.KeyType;
-import com.parkingwang.vehiclekeyboard.R;
-
 /**
  * @author 黄浩杭 (huanghaohang@parkingwang.com)
  * @since 2017-09-26 0.1
  */
-final class KeyRowLayout extends LinearLayout {
+final class KeyRowLayout extends LinearLayout
+{
     /**
      * 单行最大键数达到这个数，则显示窄间隔
      */
@@ -36,7 +37,8 @@ final class KeyRowLayout extends LinearLayout {
 
     private int mFunKeyCount;
 
-    public KeyRowLayout(Context context) {
+    public KeyRowLayout(Context context)
+    {
         super(context);
         setOrientation(LinearLayout.HORIZONTAL);
         final Drawable keyDivider = ContextCompat.getDrawable(context, R.drawable.pwk_space_horizontal);
@@ -46,24 +48,37 @@ final class KeyRowLayout extends LinearLayout {
         setClipChildren(false);
     }
 
-    public void setMaxColumn(int maxColumn) {
-        mMaxColumn = maxColumn;
-        final Drawable keyDivider;
-        if (mMaxColumn < NARROW_SPACE_KEY_COUNT) {
-            keyDivider = ContextCompat.getDrawable(getContext(), R.drawable.pwk_space_horizontal);
-        } else {
-            keyDivider = ContextCompat.getDrawable(getContext(), R.drawable.pwk_space_horizontal_narrow);
+    private float getGeneralKeyWidth(int width, int functionKeyWidth)
+    {
+        float generalKeyWidth = (width - (mMaxColumn - 1) * mGeneralKeySpace) / mMaxColumn;
+        int funKeyWidthUsed = 0;
+        if (mFunKeyCount > 0)
+        {
+            funKeyWidthUsed = functionKeyWidth * mFunKeyCount + mFunKeySpace * (mFunKeyCount - 1) + mGeneralKeySpace;
         }
-        mGeneralKeySpace = keyDivider.getIntrinsicWidth();
-        setDividerDrawable(keyDivider);
-    }
-
-    public void setFunKeyCount(int funKeyCount) {
-        mFunKeyCount = funKeyCount;
+        int generalKeyCount = getChildCount() - mFunKeyCount;
+        float availableGeneralKeyWidth = width - funKeyWidthUsed - (generalKeyCount - 1) * mGeneralKeySpace;
+        if (availableGeneralKeyWidth < generalKeyWidth * generalKeyCount)
+        {
+            generalKeyWidth = availableGeneralKeyWidth / generalKeyCount;
+        }
+        return generalKeyWidth;
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onLayout(boolean changed, int l, int t, int r, int b)
+    {
+        super.onLayout(changed, l, t, r, b);
+        // 功能键右对齐
+        for (int i = 0; i < mFunKeyCount; i++)
+        {
+            ViewCompat.offsetLeftAndRight(getChildAt(mFunKeyIndex + i), mWidthUnused);
+        }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
         final int width = MeasureSpec.getSize(widthMeasureSpec);
         final int childCount = getChildCount();
 
@@ -74,19 +89,25 @@ final class KeyRowLayout extends LinearLayout {
 
         int widthUsed = 0;
         mFunKeyIndex = 0;
-        for (int i = 0; i < childCount; i++) {
+        for (int i = 0; i < childCount; i++)
+        {
             View view = getChildAt(i);
-            if (!(view instanceof KeyView)) {
+            if (!(view instanceof KeyView))
+            {
                 continue;
             }
             KeyView keyView = (KeyView) view;
             KeyEntry keyEntry = keyView.getBoundKey();
             LayoutParams params = (LayoutParams) keyView.getLayoutParams();
-            if (keyEntry.keyType == KeyType.GENERAL) {
+            if (keyEntry.keyType == KeyType.GENERAL)
+            {
                 params.width = (int) generalKeyWidth;
-            } else {
+            }
+            else
+            {
                 params.width = functionKeyWidth;
-                if (mFunKeyIndex == 0) {
+                if (mFunKeyIndex == 0)
+                {
                     mFunKeyIndex = i;
                 }
             }
@@ -94,9 +115,12 @@ final class KeyRowLayout extends LinearLayout {
         }
         widthUsed -= mGeneralKeySpace;
         mWidthUnused = width - widthUsed;
-        if (mFunKeyCount > 0) {
+        if (mFunKeyCount > 0)
+        {
             setPadding(0, 0, 0, 0);
-        } else {
+        }
+        else
+        {
             int padding = mWidthUnused / 2;
             setPadding(padding, getPaddingTop(), padding, getPaddingBottom());
         }
@@ -104,26 +128,24 @@ final class KeyRowLayout extends LinearLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    private float getGeneralKeyWidth(int width, int functionKeyWidth) {
-        float generalKeyWidth = (width - (mMaxColumn - 1) * mGeneralKeySpace) / mMaxColumn;
-        int funKeyWidthUsed = 0;
-        if (mFunKeyCount > 0) {
-            funKeyWidthUsed = functionKeyWidth * mFunKeyCount + mFunKeySpace * (mFunKeyCount - 1) + mGeneralKeySpace;
-        }
-        int generalKeyCount = getChildCount() - mFunKeyCount;
-        float availableGeneralKeyWidth = width - funKeyWidthUsed - (generalKeyCount - 1) * mGeneralKeySpace;
-        if (availableGeneralKeyWidth < generalKeyWidth * generalKeyCount) {
-            generalKeyWidth = availableGeneralKeyWidth / generalKeyCount;
-        }
-        return generalKeyWidth;
+    public void setFunKeyCount(int funKeyCount)
+    {
+        mFunKeyCount = funKeyCount;
     }
 
-    @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
-        // 功能键右对齐
-        for (int i = 0; i < mFunKeyCount; i++) {
-            ViewCompat.offsetLeftAndRight(getChildAt(mFunKeyIndex + i), mWidthUnused);
+    public void setMaxColumn(int maxColumn)
+    {
+        mMaxColumn = maxColumn;
+        final Drawable keyDivider;
+        if (mMaxColumn < NARROW_SPACE_KEY_COUNT)
+        {
+            keyDivider = ContextCompat.getDrawable(getContext(), R.drawable.pwk_space_horizontal);
         }
+        else
+        {
+            keyDivider = ContextCompat.getDrawable(getContext(), R.drawable.pwk_space_horizontal_narrow);
+        }
+        mGeneralKeySpace = keyDivider.getIntrinsicWidth();
+        setDividerDrawable(keyDivider);
     }
 }

@@ -10,31 +10,49 @@ import static com.parkingwang.keyboard.engine.VNumberChars.OK;
 /**
  * @author 陈哈哈 yoojiachen@gmail.com
  */
-class Utils {
-    private Utils() {
+class Utils
+{
+    private Utils()
+    {
 
     }
 
-    static RowEntry append(RowEntry... items) {
+    static RowEntry append(RowEntry... items)
+    {
         final RowEntry output = new RowEntry();
-        for (RowEntry s : items) {
+        for (RowEntry s : items)
+        {
             output.addAll(s);
         }
         return output;
     }
 
-    static RowEntry mkEntitiesOf(String keysStr) {
+    public static boolean equals(Object a, Object b)
+    {
+        return (a == b) || (a != null && a.equals(b));
+    }
+
+    public static int hash(Object... values)
+    {
+        return Arrays.hashCode(values);
+    }
+
+    static RowEntry mkEntitiesOf(String keysStr)
+    {
         final RowEntry keys = new RowEntry();
-        for (int i = 0; i < keysStr.length(); i++) {
+        for (int i = 0; i < keysStr.length(); i++)
+        {
             String keyChar = String.valueOf(keysStr.charAt(i));
             keys.add(mkEntry(keyChar));
         }
         return keys;
     }
 
-    static KeyEntry mkEntry(String text) {
+    static KeyEntry mkEntry(String text)
+    {
         final KeyType keyType;
-        switch (text) {
+        switch (text)
+        {
             case DEL:
                 keyType = KeyType.FUNC_DELETE;
                 break;
@@ -51,13 +69,5 @@ class Utils {
                 keyType = KeyType.GENERAL;
         }
         return new KeyEntry(text, keyType, false);
-    }
-
-    public static boolean equals(Object a, Object b) {
-        return (a == b) || (a != null && a.equals(b));
-    }
-
-    public static int hash(Object... values) {
-        return Arrays.hashCode(values);
     }
 }

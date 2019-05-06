@@ -5,7 +5,8 @@ package com.parkingwang.keyboard.engine;
  *
  * @author 陈哈哈 yoojiachen@gmail.com
  */
-public enum KeyType {
+public enum KeyType
+{
     /**
      * 文本类型
      */

@@ -4,7 +4,8 @@ package com.parkingwang.keyboard;
  * @author 陈哈哈 (yoojiachen@gmail.com)
  * 用于显示车牌键盘的提示信息的接口。
  */
-public interface MessageHandler {
+public interface MessageHandler
+{
 
     /**
      * 显示出错提示时回调此方法

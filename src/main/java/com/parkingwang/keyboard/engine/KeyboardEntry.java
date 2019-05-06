@@ -3,7 +3,8 @@ package com.parkingwang.keyboard.engine;
 /**
  * @author 陈哈哈 yoojiachen@gmail.com
  */
-public class KeyboardEntry {
+public class KeyboardEntry
+{
     /**
      * 当前输入车牌号码的位置
      */
@@ -26,7 +27,8 @@ public class KeyboardEntry {
      */
     public final NumberType currentNumberType;
 
-    public KeyboardEntry(int selectIndex, String presetNumber, int numberMaxLength, LayoutEntry layout, NumberType currentNumberType) {
+    public KeyboardEntry(int selectIndex, String presetNumber, int numberMaxLength, LayoutEntry layout, NumberType currentNumberType)
+    {
         this.selectIndex = selectIndex;
         this.presetNumber = presetNumber;
         this.numberMaxLength = numberMaxLength;
@@ -35,7 +37,8 @@ public class KeyboardEntry {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "KeyboardEntry{" +
                 "index=" + selectIndex +
                 ", presetNumber='" + presetNumber + '\'' +

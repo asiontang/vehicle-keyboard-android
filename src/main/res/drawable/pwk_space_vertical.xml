@@ -4,6 +4,6 @@
   -->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <size android:height="@dimen/pwk_keyboard_key_space_vertical"/>
-    <solid android:color="@android:color/transparent"/>
+    <size android:height="@dimen/pwk_keyboard_key_space_vertical" />
+    <solid android:color="@android:color/transparent" />
 </shape>

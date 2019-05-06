@@ -1,5 +1,8 @@
 package com.parkingwang.keyboard.view;
 
+import com.parkingwang.keyboard.Texts;
+import com.parkingwang.vehiclekeyboard.R;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -11,14 +14,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
-import com.parkingwang.keyboard.Texts;
-import com.parkingwang.vehiclekeyboard.R;
-
 /**
  * @author 黄浩杭 (huanghaohang@parkingwang.com)
  * @version 0.1
  */
-public class BubbleDrawable extends Drawable {
+public class BubbleDrawable extends Drawable
+{
 
     private static final float ANCHOR_Y = 103f / 118;
     private static final float TEXT_CENTER_Y = 41f / 118;
@@ -31,7 +32,8 @@ public class BubbleDrawable extends Drawable {
 
     private String mText;
 
-    public BubbleDrawable(Context context) {
+    public BubbleDrawable(Context context)
+    {
         final Resources resources = context.getResources();
         mBackgroundDrawable = ContextCompat.getDrawable(context, R.drawable.pwk_key_bubble_bg);
         setBounds(0, 0, mBackgroundDrawable.getIntrinsicWidth(), mBackgroundDrawable.getIntrinsicHeight());
@@ -42,21 +44,9 @@ public class BubbleDrawable extends Drawable {
         mTextPaint.setFakeBoldText(true);
     }
 
-    public void setTextColor(int color) {
-        mTextPaint.setColor(color);
-    }
-
-    public void setText(String text) {
-        mText = text;
-        if (Texts.isEnglishLetterOrDigit(text)) {
-            mTextPaint.setTextSize(mENTextSize);
-        } else {
-            mTextPaint.setTextSize(mCNTextSize);
-        }
-    }
-
     @Override
-    public void draw(@NonNull Canvas canvas) {
+    public void draw(@NonNull Canvas canvas)
+    {
         canvas.save();
         canvas.translate(0, (1 - ANCHOR_Y) * getIntrinsicHeight());
         mBackgroundDrawable.draw(canvas);
@@ -67,36 +57,60 @@ public class BubbleDrawable extends Drawable {
     }
 
     @Override
-    public void setAlpha(int alpha) {
+    public int getIntrinsicHeight()
+    {
+        return mBackgroundDrawable.getIntrinsicHeight();
+    }
+
+    @Override
+    public int getIntrinsicWidth()
+    {
+        return mBackgroundDrawable.getIntrinsicWidth();
+    }
+
+    @Override
+    public int getOpacity()
+    {
+        return PixelFormat.UNKNOWN;
+    }
+
+    @Override
+    public void setAlpha(int alpha)
+    {
         mBackgroundDrawable.setAlpha(alpha);
         mTextPaint.setAlpha(alpha);
         invalidateSelf();
     }
 
     @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter) {
+    public void setBounds(int left, int top, int right, int bottom)
+    {
+        super.setBounds(left, top, right, bottom);
+        mBackgroundDrawable.setBounds(left, top, right, bottom);
+    }
+
+    @Override
+    public void setColorFilter(@Nullable ColorFilter colorFilter)
+    {
         mTextPaint.setColorFilter(colorFilter);
         invalidateSelf();
     }
 
-    @Override
-    public int getOpacity() {
-        return PixelFormat.UNKNOWN;
+    public void setText(String text)
+    {
+        mText = text;
+        if (Texts.isEnglishLetterOrDigit(text))
+        {
+            mTextPaint.setTextSize(mENTextSize);
+        }
+        else
+        {
+            mTextPaint.setTextSize(mCNTextSize);
+        }
     }
 
-    @Override
-    public int getIntrinsicWidth() {
-        return mBackgroundDrawable.getIntrinsicWidth();
-    }
-
-    @Override
-    public int getIntrinsicHeight() {
-        return mBackgroundDrawable.getIntrinsicHeight();
-    }
-
-    @Override
-    public void setBounds(int left, int top, int right, int bottom) {
-        super.setBounds(left, top, right, bottom);
-        mBackgroundDrawable.setBounds(left, top, right, bottom);
+    public void setTextColor(int color)
+    {
+        mTextPaint.setColor(color);
     }
 }

@@ -49,8 +49,8 @@
 
     <!--可以通过覆盖这个样式的设置来修改不同的样式-->
     <!--按键样式-->
-    <style name="PWKInputItemStyleKey" parent="PWKInputItemStyle_BORDER_KEY"/>
+    <style name="PWKInputItemStyleKey" parent="PWKInputItemStyle_BORDER_KEY" />
     <!--输入框整体样式-->
-    <style name="PWKInputViewStyle" parent="PWKInputViewStyle_MIXED"/>
+    <style name="PWKInputViewStyle" parent="PWKInputViewStyle_MIXED" />
 
 </resources>

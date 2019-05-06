@@ -3,7 +3,8 @@ package com.parkingwang.keyboard.engine;
 /**
  * @author 陈哈哈 yoojiachen@gmail.com
  */
-class VNumberChars {
+class VNumberChars
+{
 
     static final String CIVIL_PROVINCES = "京津晋冀蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川贵云藏陕甘青宁新";
     static final String NUMERIC_123 = "123";
@@ -21,7 +22,8 @@ class VNumberChars {
     static final String MORE = ">";
     static final String BACK = "<";
 
-    private VNumberChars() {
+    private VNumberChars()
+    {
 
     }
 }

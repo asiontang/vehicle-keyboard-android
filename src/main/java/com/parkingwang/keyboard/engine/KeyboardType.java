@@ -3,7 +3,8 @@ package com.parkingwang.keyboard.engine;
 /**
  * @author 陈哈哈 yoojiachen@gmail.com
  */
-public enum KeyboardType {
+public enum KeyboardType
+{
     /**
      * 全键盘
      */

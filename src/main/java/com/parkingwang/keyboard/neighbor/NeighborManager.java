@@ -9,11 +9,13 @@ import java.util.Set;
 /**
  * @author 陈哈哈 (yoojiachen@gmail.com)
  */
-public class NeighborManager {
+public class NeighborManager
+{
 
     private final Set<Province> mProvinces = new HashSet<>(32);
 
-    public NeighborManager() {
+    public NeighborManager()
+    {
         final Province beijing = new Province("北京市", "京");
         final Province tianjin = new Province("天津市", "津");
         final Province shanxi = new Province("山西省", "晋");
@@ -161,26 +163,31 @@ public class NeighborManager {
                 ningxia, xinjiang);
     }
 
+    private void bind(Province... provinces)
+    {
+        this.mProvinces.addAll(Arrays.asList(provinces));
+    }
+
     /**
      * 获取省份名称对应的省份对象
      *
      * @param provinceName 省分名称
      * @return Province
      */
-    public Province getLocation(String provinceName) {
-        if (TextUtils.isEmpty(provinceName)) {
+    public Province getLocation(String provinceName)
+    {
+        if (TextUtils.isEmpty(provinceName))
+        {
             return new Province("", "");
         }
         provinceName = provinceName.replace("省", "");
-        for (Province p : mProvinces) {
-            if (p.name.contains(provinceName)) {
+        for (Province p : mProvinces)
+        {
+            if (p.name.contains(provinceName))
+            {
                 return p;
             }
         }
         return new Province("", "");
-    }
-
-    private void bind(Province... provinces) {
-        this.mProvinces.addAll(Arrays.asList(provinces));
     }
 }

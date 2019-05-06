@@ -6,7 +6,8 @@ import com.parkingwang.keyboard.neighbor.Province;
 /**
  * @author 陈哈哈 yoojiachen@gmail.com
  */
-public class KeyboardEngine {
+public class KeyboardEngine
+{
 
     private final AvailableKeyRegistry mKeyRegistry = new AvailableKeyRegistry();
     private final LayoutManager mKeyboardLayout = new LayoutManager();
@@ -16,7 +17,8 @@ public class KeyboardEngine {
     private final RemoveOKLayoutTransformer mRemoveOKLayoutTransformer = new RemoveOKLayoutTransformer();
     private String mLocationProvince;
 
-    public KeyboardEngine() {
+    public KeyboardEngine()
+    {
         // keys
         mLayoutMixer.addKeyTransformer(new FuncKeyTransformer());
         mLayoutMixer.addKeyTransformer(new MoreKeyTransformer());
@@ -30,7 +32,8 @@ public class KeyboardEngine {
     /**
      * @param hide 设置是否不显示“确定”键
      */
-    public void setHideOKKey(boolean hide) {
+    public void setHideOKKey(boolean hide)
+    {
         mRemoveOKLayoutTransformer.setRemoveEnabled(hide);
     }
 
@@ -39,7 +42,8 @@ public class KeyboardEngine {
      *
      * @param provinceName 省份名称
      */
-    public void setLocalProvinceName(String provinceName) {
+    public void setLocalProvinceName(String provinceName)
+    {
         mLocationProvince = provinceName;
     }
 
@@ -52,11 +56,15 @@ public class KeyboardEngine {
      * @param fixedNumberType 指定车牌号码类型。要求引擎内部只按此类型来处理。
      * @return 键盘布局
      */
-    public KeyboardEntry update(String presetNumber, int selectCharIndex, boolean showMoreLayout, NumberType fixedNumberType) {
+    public KeyboardEntry update(String presetNumber, int selectCharIndex, boolean showMoreLayout, NumberType fixedNumberType)
+    {
         final NumberType detectNumberType;
-        if (NumberType.AUTO_DETECT.equals(fixedNumberType)) {
+        if (NumberType.AUTO_DETECT.equals(fixedNumberType))
+        {
             detectNumberType = NumberType.detect(presetNumber);
-        } else {
+        }
+        else
+        {
             detectNumberType = fixedNumberType;
         }
 

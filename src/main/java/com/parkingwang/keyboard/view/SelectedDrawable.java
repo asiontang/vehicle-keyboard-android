@@ -15,54 +15,40 @@ import android.support.annotation.Nullable;
  * @author 黄浩杭 (huanghaohang@parkingwang.com)
  * @since 2018-07-24
  */
-public class SelectedDrawable extends Drawable {
+public class SelectedDrawable extends Drawable
+{
 
-    protected float mRadius;
-    protected Rect mRect = new Rect();
-    protected Position mPosition = Position.FIRST;
     protected final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
     protected final Path mPath = new Path();
     protected final RectF mPathRectF = new RectF();
+    protected float mRadius;
+    protected Rect mRect = new Rect();
+    protected Position mPosition = Position.FIRST;
 
-    public SelectedDrawable() {
+    public SelectedDrawable()
+    {
         mPaint.setStyle(Paint.Style.STROKE);
     }
 
-    public void setRadius(float radius) {
-        mRadius = radius;
-    }
-
-    public void setWidth(float width) {
-        mPaint.setStrokeWidth(width);
-    }
-
-    public Rect getRect() {
-        return mRect;
-    }
-
-    public void setPosition(@NonNull Position position) {
-        mPosition = position;
-    }
-
-    public void setColor(int color) {
-        mPaint.setColor(color);
-    }
-
     @Override
-    public void draw(@NonNull Canvas canvas) {
+    public void draw(@NonNull Canvas canvas)
+    {
         float strokeWidthOffset = mPaint.getStrokeWidth() / 2;
         int left = mRect.left;
         int top = mRect.top + (int) strokeWidthOffset;
         int right = mRect.right;
         int bottom = mRect.bottom - (int) strokeWidthOffset;
         final float[] radiusArray = new float[8];
-        if (mPosition == Position.FIRST) {
+        if (mPosition == Position.FIRST)
+        {
             left += strokeWidthOffset;
             radiusArray[0] = mRadius;
             radiusArray[1] = mRadius;
             radiusArray[6] = mRadius;
             radiusArray[7] = mRadius;
-        } else if (mPosition == Position.LAST) {
+        }
+        else if (mPosition == Position.LAST)
+        {
             right -= strokeWidthOffset;
             radiusArray[2] = mRadius;
             radiusArray[3] = mRadius;
@@ -76,19 +62,48 @@ public class SelectedDrawable extends Drawable {
     }
 
     @Override
-    public void setAlpha(int alpha) {
-    }
-
-    @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter) {
-    }
-
-    @Override
-    public int getOpacity() {
+    public int getOpacity()
+    {
         return PixelFormat.UNKNOWN;
     }
 
-    enum Position {
+    public Rect getRect()
+    {
+        return mRect;
+    }
+
+    @Override
+    public void setAlpha(int alpha)
+    {
+    }
+
+    public void setColor(int color)
+    {
+        mPaint.setColor(color);
+    }
+
+    @Override
+    public void setColorFilter(@Nullable ColorFilter colorFilter)
+    {
+    }
+
+    public void setPosition(@NonNull Position position)
+    {
+        mPosition = position;
+    }
+
+    public void setRadius(float radius)
+    {
+        mRadius = radius;
+    }
+
+    public void setWidth(float width)
+    {
+        mPaint.setStrokeWidth(width);
+    }
+
+    enum Position
+    {
         FIRST,
         MIDDLE,
         LAST

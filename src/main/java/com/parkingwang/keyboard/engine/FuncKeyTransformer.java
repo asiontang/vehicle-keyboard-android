@@ -8,12 +8,15 @@ import static com.parkingwang.keyboard.engine.VNumberChars.OK;
 /**
  * @author 陈哈哈 (yoojiachen@gmail.com)
  */
-public class FuncKeyTransformer implements LayoutMixer.KeyTransformer {
+public class FuncKeyTransformer implements LayoutMixer.KeyTransformer
+{
     @Override
-    public KeyEntry transformKey(Context context, KeyEntry key) {
+    public KeyEntry transformKey(Context context, KeyEntry key)
+    {
         final boolean enabled;
         final String text;
-        switch (key.text) {
+        switch (key.text)
+        {
             case OK:
                 text = "确定";
                 // 全部车牌号码已输完，启用

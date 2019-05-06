@@ -7,7 +7,8 @@ import static com.parkingwang.keyboard.engine.VNumberChars.NUMERIC_123;
 /**
  * @author 陈哈哈 yoojiachen@gmail.com
  */
-public enum NumberType {
+public enum NumberType
+{
     /**
      * 未知类型
      */
@@ -58,75 +59,110 @@ public enum NumberType {
      */
     AVIATION;
 
+    private static boolean contains(String s, char c)
+    {
+        return s.indexOf(c) >= 0;
+    }
+
     /**
      * 检测车牌号码所属的车牌号码类型
      *
      * @param number 车牌号码
      * @return 号码类型
      */
-    public static NumberType detect(String number) {
-        if (null == number) {
+    public static NumberType detect(String number)
+    {
+        if (null == number)
+        {
             return NumberType.AUTO_DETECT;
         }
         final int length = number.length();
-        if (0 == length) {
+        if (0 == length)
+        {
             return NumberType.AUTO_DETECT;
         }
         number = number.toUpperCase();
         final char firstChar = number.charAt(0);
         // 军队
-        if (contains(CHARS_PLA2012, firstChar)) {
+        if (contains(CHARS_PLA2012, firstChar))
+        {
             return PLA2012;
         }
 
         // 使147001
-        if (VNumberChars.SHI == firstChar) {
+        if (VNumberChars.SHI == firstChar)
+        {
             return SHI2012;
         }
 
         // 146001使
-        if (contains(NUMERIC_123, firstChar)) {
+        if (contains(NUMERIC_123, firstChar))
+        {
             return SHI2017;
         }
 
         // 民航
-        if (VNumberChars.MIN == firstChar) {
+        if (VNumberChars.MIN == firstChar)
+        {
             return AVIATION;
         }
 
         // 武警
-        if (VNumberChars.WJ_W == firstChar) {
+        if (VNumberChars.WJ_W == firstChar)
+        {
             return WJ2012;
         }
 
-        if (length >= 2) {
+        if (length >= 2)
+        {
             final char secondChar = number.charAt(1);
             // 判断2018新式领事馆
-            if (contains(VNumberChars.NUMERIC_123, secondChar)) {
+            if (contains(VNumberChars.NUMERIC_123, secondChar))
+            {
                 return LING2018;
-            } else {
+            }
+            else
+            {
                 final char lastChar = number.charAt(Math.max(0, length - 1));
-                if (lastChar == LING) {
+                if (lastChar == LING)
+                {
                     return LING2012;
-                } else {
-                    if (length == 8) {
+                }
+                else
+                {
+                    if (length == 8)
+                    {
                         return NEW_ENERGY;
-                    } else {
+                    }
+                    else
+                    {
                         return CIVIL;
                     }
                 }
             }
-        } else {
+        }
+        else
+        {
             return AUTO_DETECT;
         }
     }
 
-    private static boolean contains(String s, char c) {
-        return s.indexOf(c) >= 0;
+    public boolean isAnyOf(NumberType... types)
+    {
+        for (NumberType t : types)
+        {
+            if (this.equals(t))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public int maxLength() {
-        switch (this) {
+    public int maxLength()
+    {
+        switch (this)
+        {
             case WJ2012:
             case NEW_ENERGY:
                 return 8;
@@ -134,15 +170,6 @@ public enum NumberType {
             default:
                 return 7;
         }
-    }
-
-    public boolean isAnyOf(NumberType... types) {
-        for (NumberType t : types) {
-            if (this.equals(t)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
 

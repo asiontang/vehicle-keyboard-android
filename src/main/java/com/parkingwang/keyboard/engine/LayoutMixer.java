@@ -8,39 +8,20 @@ import java.util.List;
  *
  * @author 陈哈哈 (yoojiachen@gmail.com)
  */
-public class LayoutMixer {
-
-    /**
-     * 键位转换接口
-     */
-    public interface KeyTransformer {
-        KeyEntry transformKey(Context context, KeyEntry key);
-    }
-
-    /**
-     * 布局转换接口
-     */
-    public interface LayoutTransformer {
-        LayoutEntry transformLayout(Context context, LayoutEntry layout);
-    }
+public class LayoutMixer
+{
 
     private final List<KeyTransformer> mKeyTransformers = new ArrayList<>();
     private final List<LayoutTransformer> mLayoutTransformers = new ArrayList<>();
 
-    /**
-     * @param context
-     * @param layout
-     * @return
-     */
-    public LayoutEntry transform(Context context, LayoutEntry layout) {
-        LayoutEntry out = layout;
-        for (LayoutTransformer t : mLayoutTransformers) {
-            final LayoutEntry ret = t.transformLayout(context, out);
-            if (null != ret) {
-                out = ret;
-            }
-        }
-        return out;
+    public void addKeyTransformer(KeyTransformer keyTransformer)
+    {
+        mKeyTransformers.add(keyTransformer);
+    }
+
+    public void addLayoutTransformer(LayoutTransformer transformer)
+    {
+        mLayoutTransformers.add(transformer);
     }
 
     /**
@@ -50,15 +31,20 @@ public class LayoutMixer {
      * @param layout  布局
      * @return 键位列表
      */
-    public LayoutEntry mix(Context context, LayoutEntry layout) {
+    public LayoutEntry mix(Context context, LayoutEntry layout)
+    {
         final LayoutEntry output = new LayoutEntry();
-        for (RowEntry layoutRow : layout) {
+        for (RowEntry layoutRow : layout)
+        {
             final RowEntry row = new RowEntry(layoutRow.size());
-            for (KeyEntry item : layoutRow) {
+            for (KeyEntry item : layoutRow)
+            {
                 KeyEntry key = item;
-                for (KeyTransformer keyTransformer : mKeyTransformers) {
+                for (KeyTransformer keyTransformer : mKeyTransformers)
+                {
                     final KeyEntry ret = keyTransformer.transformKey(context, key);
-                    if (null != ret) {
+                    if (null != ret)
+                    {
                         key = ret;
                     }
                 }
@@ -69,12 +55,37 @@ public class LayoutMixer {
         return output;
     }
 
-    public void addKeyTransformer(KeyTransformer keyTransformer) {
-        mKeyTransformers.add(keyTransformer);
+    /**
+     *
+     */
+    public LayoutEntry transform(Context context, LayoutEntry layout)
+    {
+        LayoutEntry out = layout;
+        for (LayoutTransformer t : mLayoutTransformers)
+        {
+            final LayoutEntry ret = t.transformLayout(context, out);
+            if (null != ret)
+            {
+                out = ret;
+            }
+        }
+        return out;
     }
 
-    public void addLayoutTransformer(LayoutTransformer transformer) {
-        mLayoutTransformers.add(transformer);
+    /**
+     * 键位转换接口
+     */
+    public interface KeyTransformer
+    {
+        KeyEntry transformKey(Context context, KeyEntry key);
+    }
+
+    /**
+     * 布局转换接口
+     */
+    public interface LayoutTransformer
+    {
+        LayoutEntry transformLayout(Context context, LayoutEntry layout);
     }
 
     ////
@@ -82,23 +93,29 @@ public class LayoutMixer {
     /**
      * 特定键位类型过滤处理
      */
-    public static abstract class AbstractTypedKeyTransformer implements KeyTransformer {
+    public static abstract class AbstractTypedKeyTransformer implements KeyTransformer
+    {
 
         private final KeyType mKeyType;
 
-        public AbstractTypedKeyTransformer(KeyType keyType) {
+        public AbstractTypedKeyTransformer(KeyType keyType)
+        {
             mKeyType = keyType;
         }
 
+        protected abstract KeyEntry transform(Context context, KeyEntry key);
+
         @Override
-        final public KeyEntry transformKey(Context context, KeyEntry key) {
-            if (mKeyType.equals(key.keyType)) {
+        final public KeyEntry transformKey(Context context, KeyEntry key)
+        {
+            if (mKeyType.equals(key.keyType))
+            {
                 return transform(context, key);
-            } else {
+            }
+            else
+            {
                 return key;
             }
         }
-
-        protected abstract KeyEntry transform(Context context, KeyEntry key);
     }
 }

@@ -12,24 +12,18 @@ import com.parkingwang.keyboard.engine.KeyboardEntry;
  * @author 黄浩杭 (huanghaohang@parkingwang.com)
  * @since 2017-09-26 0.1
  */
-public interface OnKeyboardChangedListener {
-
-    /**
-     * 车牌键按下的回调事件。
-     *
-     * @param text 所点击的按键的内容
-     */
-    void onTextKey(String text);
-
-    /**
-     * 删除键按下的回调事件。
-     */
-    void onDeleteKey();
+public interface OnKeyboardChangedListener
+{
 
     /**
      * 确定键按下的回调事件。
      */
     void onConfirmKey();
+
+    /**
+     * 删除键按下的回调事件。
+     */
+    void onDeleteKey();
 
     /**
      * 车牌键盘更新后的回调事件
@@ -38,27 +32,39 @@ public interface OnKeyboardChangedListener {
      */
     void onKeyboardChanged(KeyboardEntry keyboard);
 
+    /**
+     * 车牌键按下的回调事件。
+     *
+     * @param text 所点击的按键的内容
+     */
+    void onTextKey(String text);
+
     //////
 
-    class Simple implements OnKeyboardChangedListener {
+    class Simple implements OnKeyboardChangedListener
+    {
 
         @Override
-        public void onTextKey(String text) {
+        public void onConfirmKey()
+        {
 
         }
 
         @Override
-        public void onDeleteKey() {
+        public void onDeleteKey()
+        {
 
         }
 
         @Override
-        public void onConfirmKey() {
+        public void onKeyboardChanged(KeyboardEntry keyboard)
+        {
 
         }
 
         @Override
-        public void onKeyboardChanged(KeyboardEntry keyboard) {
+        public void onTextKey(String text)
+        {
 
         }
     }

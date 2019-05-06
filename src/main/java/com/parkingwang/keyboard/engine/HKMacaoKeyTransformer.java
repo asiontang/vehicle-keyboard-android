@@ -6,15 +6,19 @@ package com.parkingwang.keyboard.engine;
  *
  * @author 陈哈哈 (yoojiachen@gmail.com)
  */
-public class HKMacaoKeyTransformer extends LayoutMixer.AbstractTypedKeyTransformer {
+public class HKMacaoKeyTransformer extends LayoutMixer.AbstractTypedKeyTransformer
+{
 
-    public HKMacaoKeyTransformer() {
+    public HKMacaoKeyTransformer()
+    {
         super(KeyType.GENERAL);
     }
 
     @Override
-    protected KeyEntry transform(Context ctx, KeyEntry key) {
-        if (6 == ctx.selectIndex && "港澳".contains(key.text)) {
+    protected KeyEntry transform(Context ctx, KeyEntry key)
+    {
+        if (6 == ctx.selectIndex && "港澳".contains(key.text))
+        {
             return KeyEntry.newOfSetEnable(key, ctx.presetNumber.startsWith("粤"));
         }
         return key;

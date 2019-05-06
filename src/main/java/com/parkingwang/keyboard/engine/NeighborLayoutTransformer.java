@@ -11,13 +11,17 @@ import java.util.Set;
  *
  * @author 陈哈哈 (yoojiachen@gmail.com)
  */
-public class NeighborLayoutTransformer implements LayoutMixer.LayoutTransformer {
+public class NeighborLayoutTransformer implements LayoutMixer.LayoutTransformer
+{
     @Override
-    public LayoutEntry transformLayout(Context context, LayoutEntry layout) {
-        if (!context.province.isValid()) {
+    public LayoutEntry transformLayout(Context context, LayoutEntry layout)
+    {
+        if (!context.province.isValid())
+        {
             return layout;
         }
-        if (context.selectIndex != 0) {
+        if (context.selectIndex != 0)
+        {
             return layout;
         }
         final Set<Province> neighbors = context.province.getNeighbors();
@@ -28,15 +32,19 @@ public class NeighborLayoutTransformer implements LayoutMixer.LayoutTransformer 
         provinces.addAll(neighbors);
 
         final RowEntry firstRow = layout.get(0);
-        for (int headIdx = 0; headIdx < provinces.size(); headIdx++) {
+        for (int headIdx = 0; headIdx < provinces.size(); headIdx++)
+        {
             final Province province = provinces.get(headIdx);
             final KeyEntry replaceKey = firstRow.get(headIdx);
             // 找到当前省份简称对应的键位
             SEARCH_TARGET:
-            for (RowEntry row : layout) {
-                for (int i = 0; i < row.size(); i++) {
+            for (RowEntry row : layout)
+            {
+                for (int i = 0; i < row.size(); i++)
+                {
                     KeyEntry target = row.get(i);
-                    if (province.shortName.equals(target.text)) {
+                    if (province.shortName.equals(target.text))
+                    {
                         // 交换两个省份位置
                         firstRow.set(headIdx, target);
                         row.set(i, replaceKey);

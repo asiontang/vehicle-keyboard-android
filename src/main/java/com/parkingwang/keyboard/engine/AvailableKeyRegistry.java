@@ -29,11 +29,13 @@ import static com.parkingwang.keyboard.engine.VNumberChars.QWERTY_no_O;
  *
  * @author 陈哈哈 yoojiachen@gmail.com
  */
-class AvailableKeyRegistry {
+class AvailableKeyRegistry
+{
 
     private final Map<String, RowEntry> mCache = new HashMap<>();
 
-    AvailableKeyRegistry() {
+    AvailableKeyRegistry()
+    {
         //// 民用车牌
         final RowEntry lettersNumeric = mkEntitiesOf(QWERTY_no_O + NUMERIC);
         final RowEntry civilProvince = mkEntitiesOf(CIVIL_PROVINCES);
@@ -137,6 +139,11 @@ class AvailableKeyRegistry {
         mCache.put(mkKey(AUTO_DETECT, 6), civilPost);
     }
 
+    private static String mkKey(NumberType type, int index)
+    {
+        return "@" + type.name() + "." + index;
+    }
+
     /**
      * 根据指定车牌号码类型和位置，返回当前可用的全部键位
      *
@@ -144,17 +151,17 @@ class AvailableKeyRegistry {
      * @param selectedIndex 当前选择的位置
      * @return 全部可用键位
      */
-    public RowEntry available(NumberType type, int selectedIndex) {
+    public RowEntry available(NumberType type, int selectedIndex)
+    {
         final RowEntry found = mCache.get(mkKey(type, selectedIndex));
-        if (null != found) {
+        if (null != found)
+        {
             return found;
-        } else {
+        }
+        else
+        {
             return new RowEntry(0);
         }
-    }
-
-    private static String mkKey(NumberType type, int index) {
-        return "@" + type.name() + "." + index;
     }
 
 }

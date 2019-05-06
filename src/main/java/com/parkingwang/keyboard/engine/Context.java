@@ -7,7 +7,8 @@ import java.util.List;
 /**
  * @author 陈哈哈 yoojiachen@gmail.com
  */
-class Context {
+class Context
+{
 
     final String presetNumber;
     final int selectIndex;
@@ -18,7 +19,8 @@ class Context {
     final Province province;
 
     public Context(String presetNumber, int selectIndex, NumberType numberType,
-                   int limitLength, List<KeyEntry> availableKeys, boolean reqSpecLayout, Province province) {
+                   int limitLength, List<KeyEntry> availableKeys, boolean reqSpecLayout, Province province)
+    {
         this.presetNumber = presetNumber;
         this.selectIndex = selectIndex;
         this.numberType = numberType;

@@ -18,23 +18,35 @@ import static com.parkingwang.keyboard.engine.NumberType.WJ2012;
  *
  * @author 陈哈哈 (yoojiachen@gmail.com)
  */
-public class MoreKeyTransformer extends LayoutMixer.AbstractTypedKeyTransformer {
+public class MoreKeyTransformer extends LayoutMixer.AbstractTypedKeyTransformer
+{
 
-    public MoreKeyTransformer() {
+    public MoreKeyTransformer()
+    {
         super(KeyType.FUNC_MORE);
     }
 
     @Override
-    protected KeyEntry transform(Context ctx, KeyEntry key) {
-        if (0 == ctx.selectIndex && ctx.numberType.isAnyOf(CIVIL, NEW_ENERGY, LING2012, LING2018)) {
+    protected KeyEntry transform(Context ctx, KeyEntry key)
+    {
+        if (0 == ctx.selectIndex && ctx.numberType.isAnyOf(CIVIL, NEW_ENERGY, LING2012, LING2018))
+        {
             return KeyEntry.newOfSetEnable(key, false);
-        } else if (2 == ctx.selectIndex && WJ2012.equals(ctx.numberType)) {
+        }
+        else if (2 == ctx.selectIndex && WJ2012.equals(ctx.numberType))
+        {
             return KeyEntry.newOfSetEnable(key, false);
-        } else if (6 == ctx.selectIndex && ctx.numberType.isAnyOf(NEW_ENERGY, WJ2012, PLA2012, SHI2012, AVIATION)) {
+        }
+        else if (6 == ctx.selectIndex && ctx.numberType.isAnyOf(NEW_ENERGY, WJ2012, PLA2012, SHI2012, AVIATION))
+        {
             return KeyEntry.newOfSetEnable(key, false);
-        } else if (7 == ctx.selectIndex) {
+        }
+        else if (7 == ctx.selectIndex)
+        {
             return KeyEntry.newOfSetEnable(key, false);
-        } else {
+        }
+        else
+        {
             return key;
         }
     }

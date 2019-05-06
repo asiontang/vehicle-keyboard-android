@@ -16,21 +16,31 @@ import static com.parkingwang.keyboard.engine.NumberType.WJ2012;
  *
  * @author 陈哈哈 (yoojiachen@gmail.com)
  */
-public class BackKeyTransformer extends LayoutMixer.AbstractTypedKeyTransformer {
+public class BackKeyTransformer extends LayoutMixer.AbstractTypedKeyTransformer
+{
 
-    public BackKeyTransformer() {
+    public BackKeyTransformer()
+    {
         super(KeyType.FUNC_BACK);
     }
 
     @Override
-    protected KeyEntry transform(Context ctx, KeyEntry key) {
-        if (0 == ctx.selectIndex && ctx.numberType.isAnyOf(WJ2012, PLA2012, SHI2017, SHI2012, AVIATION)) {
+    protected KeyEntry transform(Context ctx, KeyEntry key)
+    {
+        if (0 == ctx.selectIndex && ctx.numberType.isAnyOf(WJ2012, PLA2012, SHI2017, SHI2012, AVIATION))
+        {
             return KeyEntry.newOfSetEnable(key, false);
-        } else if (1 == ctx.selectIndex && AVIATION.equals(ctx.numberType)) {
+        }
+        else if (1 == ctx.selectIndex && AVIATION.equals(ctx.numberType))
+        {
             return KeyEntry.newOfSetEnable(key, false);
-        } else if (6 == ctx.selectIndex && ctx.numberType.isAnyOf(SHI2017, LING2018, LING2012)) {
+        }
+        else if (6 == ctx.selectIndex && ctx.numberType.isAnyOf(SHI2017, LING2018, LING2012))
+        {
             return KeyEntry.newOfSetEnable(key, false);
-        } else {
+        }
+        else
+        {
             return key;
         }
     }
