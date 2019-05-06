@@ -1,14 +1,12 @@
 package com.parkingwang.keyboard;
 
-import com.annimon.stream.Collectors;
-import com.annimon.stream.Stream;
-import com.annimon.stream.function.Function;
-import com.annimon.stream.function.Predicate;
 import com.parkingwang.keyboard.engine.KeyEntry;
 import com.parkingwang.keyboard.engine.KeyboardEntry;
+import com.parkingwang.keyboard.engine.RowEntry;
 import com.parkingwang.keyboard.view.InputView;
 import com.parkingwang.keyboard.view.OnKeyboardChangedListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,24 +61,31 @@ class AutoCommit extends OnKeyboardChangedListener.Simple
 
     private KeyEntry singleKey(KeyboardEntry keyboard)
     {
-        final List<KeyEntry> keys = Stream.of(keyboard.layout)
-                .flatMap(new Function<List<KeyEntry>, Stream<KeyEntry>>()
-                {
-                    @Override
-                    public Stream<KeyEntry> apply(List<KeyEntry> keyEntries)
-                    {
-                        return Stream.of(keyEntries);
-                    }
-                })
-                .filter(new Predicate<KeyEntry>()
-                {
-                    @Override
-                    public boolean test(KeyEntry key)
-                    {
-                        return !key.isFunKey && key.enabled;
-                    }
-                })
-                .collect(Collectors.<KeyEntry>toList());
+        //final List<KeyEntry> keys = Stream.of(keyboard.layout)
+        //        .flatMap(new Function<List<KeyEntry>, Stream<KeyEntry>>()
+        //        {
+        //            @Override
+        //            public Stream<KeyEntry> apply(List<KeyEntry> keyEntries)
+        //            {
+        //                return Stream.of(keyEntries);
+        //            }
+        //        })
+        //        .filter(new Predicate<KeyEntry>()
+        //        {
+        //            @Override
+        //            public boolean test(KeyEntry key)
+        //            {
+        //                return !key.isFunKey && key.enabled;
+        //            }
+        //        })
+        //        .collect(Collectors.<KeyEntry>toList());
+
+
+        final List<KeyEntry> keys = new ArrayList<>();
+        for (RowEntry rowEntry : keyboard.layout)
+            for (KeyEntry keyEntry : rowEntry)
+                if (!keyEntry.isFunKey && keyEntry.enabled)
+                    keys.add(keyEntry);
 
         if (1 == keys.size())
         {
