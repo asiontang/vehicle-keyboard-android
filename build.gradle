@@ -21,8 +21,8 @@ android {
         // v0.7.3 2019.3.25 - 添加了新能源和普通车牌是否需要规则校验控制选项
         // [Merge pull request #37 from lxqxsyu/master · parkingwang/vehicle-keyboard-android@6c76f31 · GitHub](https://github.com/parkingwang/vehicle-keyboard-android/commit/6c76f313356570ac5d6b8a384d52343d7d0629e9)
         // 个人魔改的版本仓库: https://github.com/asiontang/vehicle-keyboard-android
-        versionCode 165007
-        versionName '0.7.3(Ye.190506.01.01.007)'
+        versionCode 165175
+        versionName '0.7.3(Ye.190514.01.02.175)'
     }
 
     compileOptions {

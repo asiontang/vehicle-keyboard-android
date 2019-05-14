@@ -31,8 +31,12 @@ public class NeighborLayoutTransformer implements LayoutMixer.LayoutTransformer
         // 其它省份，跟第一行几前位进行替换
         provinces.addAll(neighbors);
 
+        //FIXBUG:当前省份=蒙的时候，provinces.size=12，而firstRow.size()=10，则会崩溃：
+        //       java.lang.IndexOutOfBoundsException: Index: 10, Size: 10
+        //        	at java.util.ArrayList.get(ArrayList.java:411)
+        //        	at com.parkingwang.keyboard.engine.NeighborLayoutTransformer.transformLayout(NeighborLayoutTransformer.java:38)
         final RowEntry firstRow = layout.get(0);
-        for (int headIdx = 0; headIdx < provinces.size(); headIdx++)
+        for (int headIdx = 0; headIdx < Math.min(provinces.size(), firstRow.size()); headIdx++)
         {
             final Province province = provinces.get(headIdx);
             final KeyEntry replaceKey = firstRow.get(headIdx);
@@ -56,6 +60,4 @@ public class NeighborLayoutTransformer implements LayoutMixer.LayoutTransformer
 
         return layout;
     }
-
-
 }
